@@ -1,0 +1,43 @@
+/**
+ * Members Module Style Sheet for Phire CMS 2
+ */
+
+#members-admin-form {
+    margin: 10px auto 10px auto;
+    padding: 15px 0 15px 0;
+    width: 100%;
+    min-height: 460px;
+    border-top: solid 1px #ccc;
+}
+
+#members-admin-form > dl:first-child {
+    margin: 0 0 0 20px;
+    padding: 0 0 0 20px;
+    width: 160px;
+    border-left: solid 1px #ccc;
+    float: right;
+    min-height: 525px;
+    height: 100%;
+}
+
+#members-admin-form > dl:first-child > dt {
+    width: 100%;
+}
+
+#members-admin-form > dl:first-child > dt {
+    margin: 0 0 5px 0;
+    border-bottom: dotted 1px #aaa;
+}
+
+#members-admin-form-field-group-1 > dd:first-child, #member_parent_id, #device, #member_history {
+    width: 160px;
+}
+
+#members-admin-form-field-group-2 {
+    width: calc(100% - 220px);
+}
+
+#members-admin-form-field-group-2 > dt, #members-admin-form-field-group-2 > dd {
+    width: 98%;
+    padding-left: 4px;
+}

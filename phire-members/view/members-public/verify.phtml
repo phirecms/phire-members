@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title><?=$title; ?></title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="all" />
+
+</head>
+<body>
+    <h1><?=$title; ?></h1>
+<?php if ($result): ?>
+    <p>Thank you. Your account has been verified.</p>
+<?php else: ?>
+    <p>Sorry, your account could not be verified at this time.</p>
+<?php endif; ?>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title><?=$title; ?></title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="all" />
+
+</head>
+<body>
+<?php if (isset($form)): ?>
+<?=$form; ?>
+<?php elseif (isset($success)): ?>
+    <h2><?=$title; ?></h2>
+    <p>An email has been sent to you with a password reminder.</p>
+<?php endif; ?>
+    <div id="forgot"><a href="<?=$memberUri; ?>/login">Login</a></div>
+</body>
+
+</html>
