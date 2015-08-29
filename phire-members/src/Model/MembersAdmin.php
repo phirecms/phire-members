@@ -17,7 +17,7 @@ class MembersAdmin extends AbstractModel
     public function getAll($sort = null)
     {
         $order = (null !== $sort) ? $this->getSortOrder($sort) : 'id ASC';
-        return Table\Members::findAll(null, ['order' => $order])->rows();
+        return Table\Members::findAll(['order' => $order])->rows();
     }
 
     /**
