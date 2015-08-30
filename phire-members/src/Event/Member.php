@@ -3,6 +3,7 @@
 namespace Phire\Members\Event;
 
 use Phire\Members\Table;
+use Phire\Controller\AbstractController;
 use Pop\Application;
 use Pop\Http\Response;
 
@@ -110,6 +111,96 @@ class Member
                 (substr($route, 0, strlen($memberUri)) == $memberUri)) {
                 Response::redirect(BASE_PATH . $memberUri . '/login');
                 exit();
+            }
+        }
+    }
+
+
+    /**
+     * Init category nav and categories
+     *
+     * @param  AbstractController $controller
+     * @param  Application        $application
+     * @return void
+     */
+    public static function setTemplate(AbstractController $controller, Application $application)
+    {
+        if (($controller->hasView()) && ($controller instanceof \Phire\Members\Controller\IndexController)) {
+            $template     = basename($controller->view()->getTemplate()->getTemplate());
+            $memberName   = $controller->view()->memberName;
+            $memberUri    = $controller->view()->memberUri;
+            $templateName = null;
+            if ($application->isRegistered('phire-templates')) {
+                switch ($template) {
+                    case 'login.phtml':
+                        $templateName = $memberName . ' Login';
+                        break;
+                    case 'forgot.phtml':
+                        $templateName = $memberName . ' Forgot';
+                        break;
+                    case 'index.phtml':
+                        $templateName = $memberName . ' Index';
+                        break;
+                    case 'profile.phtml':
+                        $templateName = $memberName . ' Profile';
+                        break;
+                    case 'register.phtml':
+                        $templateName = $memberName . ' Register';
+                        break;
+                    case 'unsubscribe.phtml':
+                        $templateName = $memberName . ' Unsubscribe';
+                        break;
+                    case 'verify.phtml':
+                        $templateName = $memberName . ' Verify';
+                        break;
+                }
+
+                if (null !== $templateName) {
+                    $tmpl = \Phire\Templates\Table\Templates::findBy(['name' => $templateName]);
+                    if (isset($tmpl->id)) {
+                        $controller->view()->setTemplate($tmpl->template);
+                    }
+                }
+            } else if ($application->isRegistered('phire-themes')) {
+                switch ($template) {
+                    case 'login.phtml':
+                        $templateName = $memberUri . '/login';
+                        break;
+                    case 'forgot.phtml':
+                        $templateName = $memberUri . '/forgot';
+                        break;
+                    case 'index.phtml':
+                        $templateName = $memberUri . '/index';
+                        break;
+                    case 'profile.phtml':
+                        $templateName = $memberUri . '/profile';
+                        break;
+                    case 'register.phtml':
+                        $templateName = $memberUri . '/register';
+                        break;
+                    case 'unsubscribe.phtml':
+                        $templateName = $memberUri . '/unsubscribe';
+                        break;
+                    case 'verify.phtml':
+                        $templateName = $memberUri . '/verify';
+                        break;
+                }
+
+                if (null !== $templateName) {
+                    $theme = \Phire\Themes\Table\Themes::findBy(['active' => 1]);
+                    if (isset($theme->id)) {
+                        $templateName = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/themes/' . $theme->folder . $templateName;
+                        $tmpl = null;
+                        if (file_exists($templateName . '.phtml')) {
+                            $tmpl = $templateName . '.phtml';
+                        } else if (file_exists($templateName . '.php')) {
+                            $tmpl = $templateName . '.php';
+                        }
+                        if (null !== $tmpl) {
+                            $controller->view()->setTemplate($tmpl);
+                        }
+                    }
+                }
             }
         }
     }

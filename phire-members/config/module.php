@@ -33,6 +33,11 @@ return [
                 'name'     => 'app.dispatch.pre',
                 'action'   => 'Phire\Members\Event\Member::sessionCheck',
                 'priority' => 1001
+            ],
+            [
+                'name'     => 'app.send.pre',
+                'action'   => 'Phire\Members\Event\Member::setTemplate',
+                'priority' => 1000
             ]
         ]
     ]
