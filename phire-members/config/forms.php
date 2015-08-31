@@ -41,6 +41,14 @@ return [
                     'size'   => 60,
                     'style'  => 'width: 99.5%'
                 ]
+            ],
+            'redirect' => [
+                'type'       => 'text',
+                'label'      => 'Redirect',
+                'attributes' => [
+                    'size'   => 60,
+                    'style'  => 'width: 99.5%'
+                ]
             ]
         ]
     ],

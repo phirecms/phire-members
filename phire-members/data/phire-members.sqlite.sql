@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]members" (
   "role_id" integer NOT NULL,
   "name" varchar NOT NULL,
   "uri" varchar NOT NULL,
+  "redirect" varchar,
   UNIQUE ("id"),
   CONSTRAINT "fk_member_role_id" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;

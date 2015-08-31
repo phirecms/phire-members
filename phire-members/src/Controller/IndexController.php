@@ -34,6 +34,12 @@ class IndexController extends AbstractController
     protected $memberRoleId = null;
 
     /**
+     * Member redirect
+     * @var int
+     */
+    protected $memberRedirect = null;
+
+    /**
      * Constructor for the controller
      *
      * @param  Application $application
@@ -42,15 +48,17 @@ class IndexController extends AbstractController
      * @param  string      $memberName
      * @param  string      $memberUri
      * @param  string      $roleId
+     * @param  string      $redirect
      * @return IndexController
      */
     public function __construct(
-        Application $application, Request $request, Response $response, $memberName, $memberUri, $roleId
+        Application $application, Request $request, Response $response, $memberName, $memberUri, $roleId, $redirect = null
     )
     {
-        $this->memberName   = $memberName;
-        $this->memberUri    = $memberUri;
-        $this->memberRoleId = $roleId;
+        $this->memberName     = $memberName;
+        $this->memberUri      = $memberUri;
+        $this->memberRoleId   = $roleId;
+        $this->memberRedirect = $redirect;
 
         parent::__construct($application, $request, $response);
     }
@@ -103,7 +111,9 @@ class IndexController extends AbstractController
                     'email'    => $auth->adapter()->getUser()->email,
                 ], \ArrayObject::ARRAY_AS_PROPS);
 
-                if (php_sapi_name() != 'cli') {
+                if (!empty($this->memberRedirect)) {
+                    $path = BASE_PATH . $this->memberRedirect;
+                } else if (php_sapi_name() != 'cli') {
                     $path = BASE_PATH . $this->memberUri;
                     if ($path == '') {
                         $path = '/';

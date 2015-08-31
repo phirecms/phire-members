@@ -43,9 +43,10 @@ class MembersAdmin extends AbstractModel
     public function save(array $fields)
     {
         $member = new Table\Members([
-            'role_id' => (int)$fields['role_id'],
-            'name'    => $fields['name'],
-            'uri'     => $fields['uri']
+            'role_id'  => (int)$fields['role_id'],
+            'name'     => $fields['name'],
+            'uri'      => $fields['uri'],
+            'redirect' => (!empty($fields['uri']) ? $fields['uri'] : null)
         ]);
         $member->save();
 
@@ -63,9 +64,10 @@ class MembersAdmin extends AbstractModel
     {
         $member = Table\Members::findById((int)$fields['id']);
         if (isset($member->id)) {
-            $member->role_id = (int)$fields['role_id'];
-            $member->name    = $fields['name'];
-            $member->uri     = $fields['uri'];
+            $member->role_id  = (int)$fields['role_id'];
+            $member->name     = $fields['name'];
+            $member->uri      = $fields['uri'];
+            $member->redirect = (!empty($fields['uri']) ? $fields['uri'] : null);
             $member->save();
 
             $this->data = array_merge($this->data, $member->getColumns());

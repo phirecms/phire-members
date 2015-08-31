@@ -25,6 +25,7 @@ class Member
                     'memberName' => $member->name,
                     'memberUri'  => $member->uri,
                     'roleId'     => $member->role_id,
+                    'redirect'   => $member->redirect,
                     'append'     => true
                 ];
 
