@@ -46,7 +46,7 @@ class MembersAdmin extends AbstractModel
             'role_id'  => (int)$fields['role_id'],
             'name'     => $fields['name'],
             'uri'      => $fields['uri'],
-            'redirect' => (!empty($fields['uri']) ? $fields['uri'] : null)
+            'redirect' => (!empty($fields['redirect']) ? $fields['redirect'] : null)
         ]);
         $member->save();
 
@@ -67,7 +67,7 @@ class MembersAdmin extends AbstractModel
             $member->role_id  = (int)$fields['role_id'];
             $member->name     = $fields['name'];
             $member->uri      = $fields['uri'];
-            $member->redirect = (!empty($fields['uri']) ? $fields['uri'] : null);
+            $member->redirect = (!empty($fields['redirect']) ? $fields['redirect'] : null);
             $member->save();
 
             $this->data = array_merge($this->data, $member->getColumns());
