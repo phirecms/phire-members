@@ -240,7 +240,7 @@ class IndexController extends AbstractController
                 $user = new Model\User();
                 $user->update($fields, $this->sess);
                 $this->view->id = $user->id;
-                $this->sess->setRequestValue('saved', true, 1);
+                $this->sess->setRequestValue('saved', true);
                 $this->redirect(BASE_PATH . $this->memberUri . '/profile');
             }
         }

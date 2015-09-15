@@ -60,7 +60,7 @@ class AdminController extends AbstractController
                 $member = new Model\MembersAdmin();
                 $member->save($this->view->form->getFields());
                 $this->view->id = $member->id;
-                $this->sess->setRequestValue('saved', true, 1);
+                $this->sess->setRequestValue('saved', true);
                 $this->redirect(BASE_PATH . APP_URI . '/members-admin/edit/'. $member->id);
             }
         }
@@ -118,7 +118,7 @@ class AdminController extends AbstractController
 
                 $member->update($this->view->form->getFields(), $this->application->module('phire-members')->config()['history']);
                 $this->view->id = $member->id;
-                $this->sess->setRequestValue('saved', true, 1);
+                $this->sess->setRequestValue('saved', true);
                 $this->redirect(BASE_PATH . APP_URI . '/members-admin/edit/'. $member->id);
             }
         }
@@ -137,7 +137,7 @@ class AdminController extends AbstractController
             $member = new Model\MembersAdmin();
             $member->remove($this->request->getPost());
         }
-        $this->sess->setRequestValue('removed', true, 1);
+        $this->sess->setRequestValue('removed', true);
         $this->redirect(BASE_PATH . APP_URI . '/members-admin');
     }
 
