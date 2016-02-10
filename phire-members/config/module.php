@@ -13,8 +13,8 @@ return [
         'resources'  => include 'resources.php',
         'forms'      => include 'forms.php',
         'nav.module' => [
-            'name' => 'Members Admin',
-            'href' => '/members-admin',
+            'name' => 'Members',
+            'href' => '/members',
             'acl' => [
                 'resource'   => 'members',
                 'permission' => 'index'

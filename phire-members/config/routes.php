@@ -2,7 +2,7 @@
 
 return [
     APP_URI => [
-        '/members-admin[/]' => [
+        '/members[/]' => [
             'controller' => 'Phire\Members\Controller\AdminController',
             'action'     => 'index',
             'acl'        => [
@@ -10,7 +10,7 @@ return [
                 'permission' => 'index'
             ]
         ],
-        '/members-admin/add[/]' => [
+        '/members/add[/]' => [
             'controller' => 'Phire\Members\Controller\AdminController',
             'action'     => 'add',
             'acl'        => [
@@ -18,7 +18,7 @@ return [
                 'permission' => 'add'
             ]
         ],
-        '/members-admin/edit/:id' => [
+        '/members/edit/:id' => [
             'controller' => 'Phire\Members\Controller\AdminController',
             'action'     => 'edit',
             'acl'        => [
@@ -26,7 +26,7 @@ return [
                 'permission' => 'edit'
             ]
         ],
-        '/members-admin/remove[/]' => [
+        '/members/remove[/]' => [
             'controller' => 'Phire\Members\Controller\AdminController',
             'action'     => 'remove',
             'acl'        => [

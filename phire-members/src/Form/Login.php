@@ -46,13 +46,13 @@ class Login extends Form
 
             if (!($auth->isValid())) {
                 $this->getElement('password')
-                    ->addValidator(new Validator\NotEqual($this->password, 'The login was not correct.'));
+                     ->addValidator(new Validator\NotEqual($this->password, 'The login was not correct.'));
             } else if (!$auth->adapter()->getUser()->verified) {
                 $this->getElement('password')
-                    ->addValidator(new Validator\NotEqual($this->password, 'That user is not verified.'));
+                     ->addValidator(new Validator\NotEqual($this->password, 'That user is not verified.'));
             } else if (!$auth->adapter()->getUser()->active) {
                 $this->getElement('password')
-                    ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
+                     ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
             } else if ($this->role_id != $auth->adapter()->getUser()->role_id) {
                 $this->getElement('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'The login was not correct.'));
@@ -73,14 +73,6 @@ class Login extends Form
                 }
             }
         }
-
-        //if (($_POST) && (null !== $this->username) && (null !== $this->password) &&
-        //    !empty($this->role_id) && (null !== $auth)) {
-        //    if ($this->role_id != $auth->adapter()->getUser()->role_id) {
-        //        $this->getElement('password')
-        //             ->addValidator(new Validator\NotEqual($this->password, 'The login was not correct.'));
-        //    }
-        //}
 
         return $this;
     }

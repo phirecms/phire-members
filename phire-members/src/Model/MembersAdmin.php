@@ -35,6 +35,20 @@ class MembersAdmin extends AbstractModel
     }
 
     /**
+     * Get member admin by role ID
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function getByRoleId($id)
+    {
+        $member = Table\Members::findBy(['role_id' => $id]);
+        if (isset($member->id)) {
+            $this->data = array_merge($this->data, $member->getColumns());
+        }
+    }
+
+    /**
      * Save new member admin
      *
      * @param  array $fields

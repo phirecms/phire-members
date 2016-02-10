@@ -3,6 +3,7 @@
 namespace Phire\Members\Controller;
 
 use Phire\Members\Form\Login;
+use Phire\Members\Form\Unsubscribe;
 use Phire\Form;
 use Phire\Model;
 use Phire\Table;
@@ -70,7 +71,7 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        $this->prepareView('members-public/index.phtml');
+        $this->prepareView('members/index.phtml');
         $this->view->title = $this->memberName;
         $this->send();
     }
@@ -82,7 +83,7 @@ class IndexController extends AbstractController
      */
     public function login()
     {
-        $this->prepareView('members-public/login.phtml');
+        $this->prepareView('members/login.phtml');
         $this->view->title = $this->memberName . ' : Login';
 
         $fields = $this->application->config()['forms']['Phire\Members\Form\Login'];
@@ -138,7 +139,7 @@ class IndexController extends AbstractController
         $role = new Model\Role();
 
         if (($id == $this->memberRoleId) && ($role->canRegister($id, 'member-register'))) {
-            $this->prepareView('members-public/register.phtml');
+            $this->prepareView('members/register.phtml');
             $this->view->title = $this->memberName . ' : Register';
 
             $captcha = (isset($this->application->config()['registration_captcha']) &&
@@ -177,11 +178,17 @@ class IndexController extends AbstractController
                     $fields['active']   = (int)!($role->approval);
                     $fields['verified'] = (int)!($role->verification);
 
-                    $user = new Model\User();
-                    $user->save($fields);
+                    $member = new \Phire\Members\Model\MembersAdmin();
+                    $member->getByRoleId($id);
 
-                    $this->view->id      = $user->id;
-                    $this->view->success = true;
+                    $memberUri = (isset($member->uri)) ? $member->uri : APP_URI;
+
+                    $user = new Model\User();
+                    $user->save($fields, $memberUri);
+
+                    $this->view->id       = $user->id;
+                    $this->view->success  = true;
+                    $this->view->verified = $user->verified;
                 }
             }
             $this->send();
@@ -197,7 +204,7 @@ class IndexController extends AbstractController
      */
     public function profile()
     {
-        $this->prepareView('members-public/profile.phtml');
+        $this->prepareView('members/profile.phtml');
         $this->view->title = $this->memberName . ' : Profile';
 
         $user = new Model\User();
@@ -258,7 +265,7 @@ class IndexController extends AbstractController
     public function verify($id, $hash)
     {
         $user = new Model\User();
-        $this->prepareView('members-public/verify.phtml');
+        $this->prepareView('members/verify.phtml');
         $this->view->title  = $this->memberName . ' : Verify Your Email';
         $this->view->result = $user->verify($id, $hash);
         $this->view->id = $user->id;
@@ -272,7 +279,7 @@ class IndexController extends AbstractController
      */
     public function forgot()
     {
-        $this->prepareView('members-public/forgot.phtml');
+        $this->prepareView('members/forgot.phtml');
         $this->view->title = $this->memberName . ' : Password Reminder';
 
         $this->view->form = new Form\Forgot($this->application->config()['forms']['Phire\Form\Forgot']);
@@ -305,10 +312,10 @@ class IndexController extends AbstractController
      */
     public function unsubscribe()
     {
-        $this->prepareView('members-public/unsubscribe.phtml');
+        $this->prepareView('members/unsubscribe.phtml');
         $this->view->title = $this->memberName . ' : Unsubscribe';
 
-        $this->view->form = new Form\Unsubscribe($this->application->config()['forms']['Phire\Form\Unsubscribe']);
+        $this->view->form = new Unsubscribe($this->application->config()['forms']['Phire\Members\Form\Unsubscribe']);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')

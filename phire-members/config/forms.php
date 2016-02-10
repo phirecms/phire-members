@@ -80,5 +80,23 @@ return [
             'type'  => 'hidden',
             'value' => 0
         ]
+    ],
+    'Phire\Members\Form\Unsubscribe' => [
+        'email' => [
+            'type'       => 'email',
+            'label'      => 'Unsubscribe',
+            'required'   => 'true',
+            'validators' => new \Pop\Validator\Email(),
+            'attributes' => [
+                'placeholder' => 'Please enter your email'
+            ]
+        ],
+        'submit' => [
+            'type'  => 'submit',
+            'value' => 'Unsubscribe',
+            'attributes' => [
+                'class'  => 'save-btn'
+            ]
+        ]
     ]
 ];

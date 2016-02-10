@@ -2,9 +2,9 @@
     <h1 class="members-header"><?=$title; ?></h1>
     <nav id="sub-nav">
 <?php if ($acl->isAllowed($user->role, 'members', 'add')): ?>
-        <nav><a href="<?=$phireUri; ?>/members-admin/add">+ Add</a></nav>
+        <nav><a href="<?=$phireUri; ?>/members/add">+ Add</a></nav>
 <?php endif; ?>
-        <nav><a href="<?=$phireUri; ?>/members-admin">Back</a></nav>
+        <nav><a href="<?=$phireUri; ?>/members">Back</a></nav>
     </nav>
 <?=$form; ?>
 <?php include $phireFooter; ?>

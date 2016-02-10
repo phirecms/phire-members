@@ -17,10 +17,10 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        $this->prepareView('members-admin/index.phtml');
+        $this->prepareView('members/admin/index.phtml');
         $members = new Model\MembersAdmin();
 
-        $this->view->title   = 'Members Admin';
+        $this->view->title   = 'Members';
         $this->view->members = $members->getAll($this->request->getQuery('sort'));
 
         $this->send();
@@ -33,8 +33,8 @@ class AdminController extends AbstractController
      */
     public function add()
     {
-        $this->prepareView('members-admin/add.phtml');
-        $this->view->title = 'Members Admin : Add';
+        $this->prepareView('members/admin/add.phtml');
+        $this->view->title = 'Members : Add';
 
         $fields = $this->application->config()['forms']['Phire\Members\Form\MembersAdmin'];
 
@@ -61,7 +61,7 @@ class AdminController extends AbstractController
                 $member->save($this->view->form->getFields());
                 $this->view->id = $member->id;
                 $this->sess->setRequestValue('saved', true);
-                $this->redirect(BASE_PATH . APP_URI . '/members-admin/edit/'. $member->id);
+                $this->redirect(BASE_PATH . APP_URI . '/members/edit/'. $member->id);
             }
         }
 
@@ -80,11 +80,11 @@ class AdminController extends AbstractController
         $member->getById($id);
 
         if (!isset($member->id)) {
-            $this->redirect(BASE_PATH . APP_URI . '/members-admin');
+            $this->redirect(BASE_PATH . APP_URI . '/members');
         }
 
-        $this->prepareView('members-admin/edit.phtml');
-        $this->view->title       = 'Members Admin';
+        $this->prepareView('members/admin/edit.phtml');
+        $this->view->title       = 'Members';
         $this->view->member_name = $member->name;
 
         $fields = $this->application->config()['forms']['Phire\Members\Form\MembersAdmin'];
@@ -119,7 +119,7 @@ class AdminController extends AbstractController
                 $member->update($this->view->form->getFields(), $this->application->module('phire-members')->config()['history']);
                 $this->view->id = $member->id;
                 $this->sess->setRequestValue('saved', true);
-                $this->redirect(BASE_PATH . APP_URI . '/members-admin/edit/'. $member->id);
+                $this->redirect(BASE_PATH . APP_URI . '/members/edit/'. $member->id);
             }
         }
 
@@ -138,7 +138,7 @@ class AdminController extends AbstractController
             $member->remove($this->request->getPost());
         }
         $this->sess->setRequestValue('removed', true);
-        $this->redirect(BASE_PATH . APP_URI . '/members-admin');
+        $this->redirect(BASE_PATH . APP_URI . '/members');
     }
 
     /**

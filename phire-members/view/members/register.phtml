@@ -12,7 +12,7 @@
 <body>
     <h1><?=$title; ?></h1>
 <?php if (isset($success) && ($success)): ?>
-    <p>Thank you. You have successfully registered with this website.</p>
+    <p>Thank you. You have successfully registered with this website.<?php if (!($verified)): ?> Please check your email to verify your email address.<?php endif; ?></p>
 <?php elseif (isset($form)): ?>
 <?=$form; ?>
 <?php endif; ?>
