@@ -20,7 +20,7 @@ class AdminController extends AbstractController
         $this->prepareView('members/admin/index.phtml');
         $members = new Model\MembersAdmin();
 
-        $this->view->title   = 'Members';
+        $this->view->title   = 'Members Admin';
         $this->view->members = $members->getAll($this->request->getQuery('sort'));
 
         $this->send();
@@ -34,7 +34,7 @@ class AdminController extends AbstractController
     public function add()
     {
         $this->prepareView('members/admin/add.phtml');
-        $this->view->title = 'Members : Add';
+        $this->view->title = 'Members Admin : Add';
 
         $fields = $this->application->config()['forms']['Phire\Members\Form\MembersAdmin'];
 
@@ -84,21 +84,14 @@ class AdminController extends AbstractController
         }
 
         $this->prepareView('members/admin/edit.phtml');
-        $this->view->title       = 'Members';
+        $this->view->title       = 'Members Admin';
         $this->view->member_name = $member->name;
 
         $fields = $this->application->config()['forms']['Phire\Members\Form\MembersAdmin'];
 
-        $roles = \Phire\Table\Roles::findAll();
-        foreach ($roles->rows() as $role) {
+        $role = \Phire\Table\Roles::findById($member->role_id);
+        if (isset($role->id)) {
             $fields[0]['role_id']['value'][$role->id] = $role->name;
-        }
-
-        $members = Table\Members::findAll();
-        foreach ($members->rows() as $tmpl) {
-            if ($tmpl->id != $id) {
-                $fields[0]['member_parent_id']['value'][$tmpl->id] = $tmpl->name;
-            }
         }
 
         $fields[1]['name']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';

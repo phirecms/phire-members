@@ -71,7 +71,7 @@ class Unsubscribe extends Form
                     $permissions = unserialize($role->permissions);
                     if (isset($permissions['deny'])) {
                         foreach ($permissions['deny'] as $deny) {
-                            if ($deny['resource'] == 'login') {
+                            if ($deny['resource'] == 'member-login') {
                                 $requireLogin = false;
                             }
                         }
