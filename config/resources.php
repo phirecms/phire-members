@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * phire-members resources
+ */
 return [
     'members' => [
         'index',

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * phire-members routes
+ */
 return [
     APP_URI => [
         '/members[/]' => [

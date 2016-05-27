@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * phire-members form configuration
+ */
 return [
     'Phire\Members\Form\MembersAdmin' => [
         [
